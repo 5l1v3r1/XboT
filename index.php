@@ -1,8 +1,8 @@
 <?php
-date_default_timezone_set('Asia/Bangkok');
-$time = date("H:i:s");
+date_default_timezone_set('Asia/Bangkok'); //เปลี่ยน time-zone
+$time = date("H:i:s"); // time format
 
-function randomCitizenID(){
+function randomCitizenID(){ // function สุมเลขประชาชน
 	for($i=0;$i<12;$i++){
 		$k = abs($i + (-13));
 		$m = rand(0,9);
@@ -12,7 +12,7 @@ function randomCitizenID(){
 	$lastNumber = 11 - ($numberCalc % 11); // ตัวเลขหลักสุดท้าย
 	return $firstNumber.$lastNumber;
 }
-function get_data_ip($url_R) {
+function get_data_ip($url_R) { //fucntion get data ip
 	$chIP = curl_init();
 	$timeout = 5;
 	curl_setopt($chIP, CURLOPT_URL, $url_R);
@@ -22,11 +22,11 @@ function get_data_ip($url_R) {
 	curl_close($chIP);
 	return $dataR;
 }
-function send_sms($to,$from,$msg_sms){
+function send_sms($to,$from,$msg_sms){ // function ส่ง sms ใช้ nexmo api
 	$url = 'https://rest.nexmo.com/sms/json?' . http_build_query(
     [
-      'api_key' =>  'xxxx',
-      'api_secret' => 'xxxx',
+      'api_key' =>  'xxxx', // แก้เอาเอง
+      'api_secret' => 'xxxx', // แก้เอาเอง
       'to' => $to,
       'from' => $from,
       'text' => $msg_sms,
@@ -40,8 +40,8 @@ $response = curl_exec($ch);
 return $response;
 }
 // parameters
-$hubVerifyToken = 'xxxx';
-$accessToken = "xxxx";
+$hubVerifyToken = 'xxxx'; // VerifyToken
+$accessToken = "xxxx"; // $accessToken
 // check token at setup
 if ($_REQUEST['hub_verify_token'] === $hubVerifyToken) {
   echo $_REQUEST['hub_challenge'];
