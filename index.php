@@ -12,7 +12,6 @@ function randomCitizenID(){
 	$lastNumber = 11 - ($numberCalc % 11); // ตัวเลขหลักสุดท้าย
 	return $firstNumber.$lastNumber;
 }
-
 function get_data_ip($url_R) {
 	$chIP = curl_init();
 	$timeout = 5;
@@ -23,7 +22,6 @@ function get_data_ip($url_R) {
 	curl_close($chIP);
 	return $dataR;
 }
-
 function send_sms($to,$from,$msg_sms){
 	$url = 'https://rest.nexmo.com/sms/json?' . http_build_query(
     [
@@ -35,17 +33,12 @@ function send_sms($to,$from,$msg_sms){
       'type' => 'unicode'
     ]
 );
-
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
 
 return $response;
 }
-
-
-
-
 // parameters
 $hubVerifyToken = 'xxxx';
 $accessToken = "xxxx";
@@ -59,8 +52,6 @@ $input = json_decode(file_get_contents('php://input'), true);
 $senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
 $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 //$answer = "ว่าไง boss มีไรให้ช่วยมั๊ย";
-
-
 
 if($messageText == "หวัดดี" || $messageText == "สวัสดี" || $messageText == "ทักๆ" || $messageText == "ทัก" || $messageText == "hi" || $messageText == "hello") {
     $answer = "สัวสดีคับ boss\n"."หากสงสัยอะไรพิมพ์ว่า help ได้น่ะ";
@@ -110,18 +101,13 @@ else if(strpos($messageText,'กินไรยัง') !== false){
 
 
 	$answer = "Result >> <3 :p http://reip.stephack.com/".$dns_reverseip;
-
 }
 //-------------------------------------------------------------------------------------------------------
 
 else if(strpos($messageText,'/whois') !== false){
 
 	$dns_whois = substr($messageText,7,strlen($messageText));
-
 	$dnsurl_whois = 'https://who.is/whois/'.$dns_whois;
-
-	
-
 	$answer = "Result >> <3 :p ".$dnsurl_whois;
 
 }else if(strpos($messageText,'/whatip') !== false){
@@ -182,9 +168,6 @@ else{
 
 }
 
-
-
-
 $response = [
     'recipient' => [ 'id' => $senderId ],
     'message' => [ 'text' => $answer ]
@@ -197,3 +180,4 @@ curl_exec($ch);
 curl_close($ch);
 
 
+// bot by un4
